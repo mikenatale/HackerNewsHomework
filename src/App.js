@@ -22,6 +22,9 @@ class App extends Component {
         this.getTopArticlesInfo = this.getTopArticlesInfo.bind(this);
         this.getCommenters = this.getCommenters.bind(this);
         this.getTopCommenters = this.getTopCommenters.bind(this);
+
+        this.renderTopArticles = this.renderTopArticles.bind(this);
+        this.renderTopCommenters = this.renderTopCommenters.bind(this);
     }
 
     getTopArticles() {
@@ -151,10 +154,51 @@ class App extends Component {
         });
     }
 
+    renderTopArticles() {
+        let index = 0;
+        return this.state.topArticlesInfo.map((article) => {
+            index += 1;
+
+            return (
+                <div className="article full-width" key={article.id}>
+                    { `${index}. ${article.title}` }
+                </div>
+            );
+        });
+    }
+
+    renderTopCommenters() {
+        let index = 0;
+        return this.state.topCommenters.map((commenter) => {
+            index += 1;
+
+            return (
+                <div className="commenter full-width" key={commenter[0]}>
+                    { `${index}. ${commenter[0]} (${commenter[1]})` }
+                </div>
+            );
+        });
+    }
+
     render() {
         return (
-            <div>
-                { JSON.stringify(this.state.topCommenters) }
+            <div className="app-wrapper">
+                <div className="articles">
+                    <div className="article-header header">
+                        Top 30 Articles
+                    </div>
+                    <div className="article-body">
+                        { this.renderTopArticles() }
+                    </div>
+                </div>
+                <div className="commenters">
+                    <div className="commenter-header header">
+                        Top 10 Commenters
+                    </div>
+                    <div className="commenter-body">
+                        { this.renderTopCommenters() }
+                    </div>
+                </div>
             </div>
         );
     }

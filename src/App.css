@@ -1,0 +1,21 @@
+.app-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.header {
+    font-weight: bold;
+}
+
+.articles {
+    width: 50%;
+}
+
+.commenters {
+    width: 50%;
+}
