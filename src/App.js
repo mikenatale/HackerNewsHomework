@@ -161,7 +161,7 @@ class App extends Component {
 
             return (
                 <div className="article full-width" key={article.id}>
-                    { `${index}. ${article.title}` }
+                    <span className="bold">{ index }.</span> { article.title }
                 </div>
             );
         });
@@ -174,7 +174,7 @@ class App extends Component {
 
             return (
                 <div className="commenter full-width" key={commenter[0]}>
-                    { `${index}. ${commenter[0]} (${commenter[1]})` }
+                    <span className="bold">{ index }.</span> { commenter[0] } <span className="comment-count">({ commenter[1] })</span>
                 </div>
             );
         });
@@ -182,21 +182,38 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app-wrapper">
-                <div className="articles">
-                    <div className="article-header header">
-                        Top 30 Articles
-                    </div>
-                    <div className="article-body">
-                        { this.renderTopArticles() }
-                    </div>
+            <div className="wrapper">
+                <div className="header">
+                    HackerNews - Top Articles & Commenters
                 </div>
-                <div className="commenters">
-                    <div className="commenter-header header">
-                        Top 10 Commenters
+                <div className="content-wrapper">
+                    <div className="articles content">
+                        <div className="article-header content-header">
+                            {`Top ${_NUM_ARTICLES_DISPLAYED} Articles`}
+                        </div>
+                        <div className="article-body">
+                            {
+                                this.state.topArticlesInfo.length
+                                ?
+                                    this.renderTopArticles()
+                                :
+                                    'Loading...'
+                            }
+                        </div>
                     </div>
-                    <div className="commenter-body">
-                        { this.renderTopCommenters() }
+                    <div className="commenters content">
+                        <div className="commenter-header content-header">
+                            {`Top ${_NUM_TOP_COMMENTERS_DISPLAYED} Commenters`}
+                        </div>
+                        <div className="commenter-body">
+                            {
+                                this.state.topCommenters.length
+                                ?
+                                    this.renderTopCommenters()
+                                :
+                                    'Loading...'
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,17 @@
-.app-wrapper {
+body {
+    background-color: #F6F6EF;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+    padding: 20px 0;
+    background-color: #F60;
+}
+
+.content-wrapper {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -8,14 +21,20 @@
     width: 100%;
 }
 
-.header {
+.bold {
     font-weight: bold;
 }
 
-.articles {
+.content-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content {
+    padding: 20px 50px 50px 50px;
     width: 50%;
 }
 
-.commenters {
-    width: 50%;
+.comment-count {
+    color: #999;
 }
