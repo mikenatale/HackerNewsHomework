@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getBaseApiUrl } from './utils.js';
 
 const _NUM_ARTICLES_DISPLAYED = 30;
+const _NUM_TOP_COMMENTERS_DISPLAYED = 10;
 
 class App extends Component {
     constructor() {
@@ -12,14 +13,15 @@ class App extends Component {
         this.state = {
             commentIds: [],
             commenters: [],
+            topCommenters: [],
             topArticlesIds: [],
             topArticlesInfo: [],
-            topCommenterIds: []
         };
 
         this.getTopArticles = this.getTopArticles.bind(this);
         this.getTopArticlesInfo = this.getTopArticlesInfo.bind(this);
         this.getCommenters = this.getCommenters.bind(this);
+        this.getTopCommenters = this.getTopCommenters.bind(this);
     }
 
     getTopArticles() {
@@ -117,13 +119,33 @@ class App extends Component {
         });
     }
 
+    getTopCommenters() {
+        let commenters = this.state.commenters;
+
+        let sortedCommenters = [];
+        for (let key in commenters) {
+            sortedCommenters.push([key, commenters[key]]);
+        }
+
+        sortedCommenters.sort(function(a, b) {
+            a = a[1];
+            b = b[1];
+
+            return a > b ? -1 : (a < b ? 1 : 0);
+        });
+
+        let topCommenters = sortedCommenters.slice(0, _NUM_TOP_COMMENTERS_DISPLAYED);
+
+        this.setState({ topCommenters });
+    }
+
     componentWillMount() {
         let scope = this;
 
         scope.getTopArticles().then(() => {
             scope.getTopArticlesInfo().then(() => {
                 scope.getCommenters().then(() => {
-                    // TODO
+                    scope.getTopCommenters();
                 });
             });
         });
@@ -132,7 +154,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                { JSON.stringify(this.state.commentIds) }
+                { JSON.stringify(this.state.topCommenters) }
             </div>
         );
     }
